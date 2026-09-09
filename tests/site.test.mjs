@@ -6,7 +6,7 @@ import {parseHTML} from 'linkedom';
 import {getOpeningStatus} from '../src/lib/hours.mjs';
 
 const root=path.resolve('dist');
-const base=(process.env.BASE_PATH||'/funland').replace(/\/$/,'');
+const base=(process.env.VERCEL==='1'?'/':process.env.BASE_PATH||'/').replace(/\/$/,'');
 const routes=['','trips','experiences','business','visit','offers','privacy'];
 for(const lang of ['ar','en'])for(const route of routes){
   test(`${lang}/${route}: metadata, language, all local links and assets resolve`,()=>{
@@ -24,7 +24,7 @@ for(const lang of ['ar','en'])for(const route of routes){
       if(!url||/^(https?:|mailto:|tel:|data:)/.test(url))continue;
       const [pathname,fragment]=url.split('#');
       if(!pathname){if(fragment)assert.ok(document.getElementById(fragment),`Missing #${fragment}`);continue;}
-      assert.ok(pathname.startsWith(base+'/'),`Wrong GitHub Pages base: ${url}`);
+      assert.ok(pathname.startsWith(base+'/'),`Wrong deployment base: ${url}`);
       let target=path.join(root,decodeURIComponent(pathname.slice(base.length)));
       if(pathname.endsWith('/'))target=path.join(target,'index.html');
       assert.ok(fs.existsSync(target),`Missing target: ${url}`);
@@ -37,6 +37,18 @@ for(const lang of ['ar','en'])for(const route of routes){
     assert.ok(document.querySelector('.language-toggle').getAttribute('href').includes(`/${lang==='ar'?'en':'ar'}/${route}`));
   });
 }
+
+test('Root redirect and 404 assets use the deployment mount point',()=>{
+  const entry=parseHTML(fs.readFileSync(path.join(root,'index.html'),'utf8')).document;
+  assert.equal(entry.querySelector('meta[http-equiv=refresh]').getAttribute('content'),`0;url=${base}/ar/`);
+  const missing=parseHTML(fs.readFileSync(path.join(root,'404.html'),'utf8')).document;
+  for(const node of missing.querySelectorAll('link[rel=stylesheet],script[src],img')){
+    const url=node.getAttribute('href')||node.getAttribute('src');
+    if(/^https?:/.test(url))continue;
+    assert.ok(url.startsWith(base+'/'));
+    assert.ok(fs.existsSync(path.join(root,url.slice(base.length))),`Missing 404-page resource: ${url}`);
+  }
+});
 
 test('Every game opens an inline island detail, with no modal remaining',()=>{
   const {document}=parseHTML(fs.readFileSync(path.join(root,'ar/experiences/index.html'),'utf8'));

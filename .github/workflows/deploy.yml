@@ -15,6 +15,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SITE_URL: https://nasseh2005-byte.github.io
+      BASE_PATH: /funland
+      PUBLIC_CMS_AUTH_URL: ${{ vars.PUBLIC_CMS_AUTH_URL }}
+      ASTRO_TELEMETRY_DISABLED: 1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,11 +29,6 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
-        env:
-          SITE_URL: https://nasseh2005-byte.github.io
-          BASE_PATH: /funland
-          PUBLIC_CMS_AUTH_URL: ${{ vars.PUBLIC_CMS_AUTH_URL }}
-          ASTRO_TELEMETRY_DISABLED: 1
       - run: npm test
       - uses: actions/upload-pages-artifact@v3
         with:
