@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import {site, href, asset, tr, titles, type Lang} from '../lib/site';
+interface Props {lang: Lang; page?: string;}
+const {lang, page = ''} = Astro.props;
+const t = (ar: string, en: string) => tr(lang, ar, en);
+const nav = [['', t('الرئيسية','Home')], ['about',t('عن المؤسسة','About us')], ['experiences',t('تجارب الجزيرة','Experiences')], ['business',t('الأعمال والشراكات','Business')]];
+const description = t('تعرف على مؤسسة ملاهي جزيرة المرح الاقتصادية في جدة، واستكشف تجارب الترفيه العائلي ومعلومات المؤسسة وخطط لزيارتك.', 'Discover Fun Island in Jeddah: family entertainment, establishment information, experiences and visit planning.');
+const title = titles[page]?.[lang] || titles[''][lang];
+const canonical = new URL(href(lang, page), Astro.site);
+---
+<!doctype html>
+<html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+  <head>
+    <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{title}{page ? t(' | جزيرة المرح', ' | Fun Island') : ''}</title>
+    <meta name="description" content={description}/><meta name="theme-color" content="#123dba"/>
+    <link rel="canonical" href={canonical}/>
+    <link rel="alternate" hreflang="ar" href={new URL(href('ar', page), Astro.site)}/>
+    <link rel="alternate" hreflang="en" href={new URL(href('en', page), Astro.site)}/>
+    <link rel="alternate" hreflang="x-default" href={new URL(href('ar', page), Astro.site)}/>
+    <meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={canonical}/>
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')}/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;450;500;600;650;700;750;800&display=swap" rel="stylesheet"/>
+    <script is:inline>
+      try { const theme = localStorage.getItem('fi-theme'); document.documentElement.dataset.theme = theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = 'light'; }
+    </script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@type':'Organization',name:site.organization.name.ar,alternateName:'Fun Island',url:new URL(href('ar'),Astro.site).href,identifier:[{'@type':'PropertyValue',name:'Commercial registration',value:site.organization.registration},{'@type':'PropertyValue',name:'Unified national number',value:site.organization.unifiedNumber}]})}/>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('انتقل للمحتوى','Skip to content')}</a>
+    <div class="topbar"><div class="container topbar-inner"><span>{t('مؤسسة ملاهي جزيرة المرح الاقتصادية','Fun Island Economic Amusement Establishment')}</span><span class="topbar-location"><Icon name="pin" size={14}/>{t('جدة، المملكة العربية السعودية','Jeddah, Saudi Arabia')}</span></div></div>
+    <header class="header">
+      <div class="container nav-shell">
+        <a class="brand" href={href(lang)} aria-label={t('جزيرة المرح — الرئيسية','Fun Island — Home')}><span class="brand-mark"><Icon name="wheel" size={33}/></span><span class="brand-type"><strong>{t('جزيرة المرح','Fun Island')}</strong><small>{t('F U N  I S L A N D','جزيرة المرح')}</small></span></a>
+        <nav class="desktop-nav" aria-label={t('القائمة الرئيسية','Main navigation')}>{nav.map(([path,label])=><a href={href(lang,path)} class:list={{active:page===path}} aria-current={page===path?'page':undefined}>{label}</a>)}</nav>
+        <div class="nav-actions">
+          <button class="icon-button theme-toggle" aria-label={t('تبديل الوضع الليلي والنهاري','Toggle day and night mode')} aria-pressed="false" title={t('الوضع الليلي والنهاري','Day and night mode')}><span class="sun-icon"><Icon name="sun" size={20}/></span><span class="moon-icon"><Icon name="moon" size={20}/></span></button>
+          <a class="language-toggle" href={href(lang==='ar'?'en':'ar',page)} lang={lang==='ar'?'en':'ar'}><Icon name="globe" size={17}/>{t('EN','عربي')}</a>
+          <a class="button button-small visit-nav" href={href(lang,'visit')}>{t('خطط لزيارتك','Plan your visit')}<Icon name="arrow" size={16} class="direction-arrow"/></a>
+          <button class="icon-button menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label={t('فتح القائمة','Open menu')}><Icon name="menu"/></button>
+        </div>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav container" aria-label={t('قائمة الجوال','Mobile navigation')} hidden>{[...nav,['offers',t('الأسعار والعروض','Prices & offers')],['visit',t('خطط لزيارتك','Plan your visit')]].map(([path,label])=><a href={href(lang,path)} aria-current={page===path?'page':undefined}>{label}</a>)}</nav>
+    </header>
+    <main id="main"><slot/></main>
+    <footer class="footer"><div class="container">
+      <div class="footer-top"><div class="footer-brand"><a class="brand" href={href(lang)}><span class="brand-mark"><Icon name="wheel" size={31}/></span><span class="brand-type"><strong>{t('جزيرة المرح','Fun Island')}</strong><small>FUN ISLAND</small></span></a><p>{t('مساحة للبهجة. وذكريات تجمعنا.','Room for joy. Memories that bring us together.')}</p></div>
+      <div><h3>{t('اكتشف الجزيرة','Discover the island')}</h3><a href={href(lang,'experiences')}>{t('الألعاب والتجارب','Games & experiences')}</a><a href={href(lang,'offers')}>{t('الأسعار والعروض','Prices & offers')}</a><a href={href(lang,'visit')}>{t('خطط لزيارتك','Plan your visit')}</a></div>
+      <div><h3>{t('المؤسسة','The establishment')}</h3><a href={href(lang,'about')}>{t('من نحن','About us')}</a><a href={href(lang,'business')}>{t('الأعمال والشراكات','Business & partnerships')}</a><a href={href(lang,'about')+'#registration'}>{t('بيانات المؤسسة','Establishment details')}</a></div>
+      <div class="footer-legal"><h3>{t('بيانات التسجيل','Registration details')}</h3><p>{t('السجل التجاري','Commercial registration')}<b dir="ltr">{site.organization.registration}</b></p><p>{t('الرقم الوطني الموحد','Unified national number')}<b dir="ltr">{site.organization.unifiedNumber}</b></p></div></div>
+      <div class="footer-bottom"><span>© {new Date().getFullYear()} {site.organization.name[lang]}</span><a href={href(lang,'privacy')}>{t('الخصوصية','Privacy')}</a><span>{t('صُنعت للبهجة','Made for joyful moments')}<Icon name="spark" size={15}/></span></div>
+    </div></footer>
+    <script src="../scripts/client.ts"></script>
+  </body>
+</html>

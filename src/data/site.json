@@ -1,0 +1,30 @@
+{
+  "organization": {
+    "name": {"ar": "مؤسسة ملاهي جزيرة المرح الاقتصادية", "en": "Fun Island Economic Amusement Establishment"},
+    "brand": {"ar": "جزيرة المرح", "en": "Fun Island"},
+    "registration": "4030425656",
+    "unifiedNumber": "7025421574",
+    "issueDate": "2021-08-17",
+    "phone": "0156706068",
+    "publicPhone": false,
+    "email": "",
+    "whatsapp": "",
+    "activities": ["entertainment", "events", "toys", "food"],
+    "sourceNote": "User-provided commercial registration image; current registration status and contact availability are not independently verified. English legal name is a descriptive translation."
+  },
+  "branches": [{"id": "jeddah", "name": {"ar": "جزيرة المرح — جدة", "en": "Fun Island — Jeddah"}, "city": {"ar":"جدة", "en":"Jeddah"}, "address": {"ar":"", "en":""}, "mapsUrl":"", "timezone":"Asia/Riyadh", "hours": {}, "exceptions": {}, "pricing": [], "offers": [], "gallery": [], "amenities": []}],
+  "games": [
+    {"id":"cars", "branchId":"jeddah", "category":"adventure", "title":{"ar":"عالم السيارات", "en":"On the track"}, "description":{"ar":"حماس السباق ومتعة القيادة في مغامرة مليئة بالحركة.", "en":"The thrill of racing and the joy of driving, in an adventure full of movement."}, "icon":"car", "age":"", "minHeight":"", "price":"", "status":"unconfirmed", "image":"", "featured":true},
+    {"id":"carousel", "branchId":"jeddah", "category":"family", "title":{"ar":"جولة من البهجة", "en":"A little spin of joy"}, "description":{"ar":"الألعاب الدوارة والفناجين والأحصنة؛ تفاصيل صغيرة تصنع ذكريات جميلة.", "en":"Spinning rides, teacups and carousels. Little moments that become lovely memories."}, "icon":"wheel", "age":"", "minHeight":"", "price":"", "status":"unconfirmed", "image":"", "featured":true},
+    {"id":"arcade", "branchId":"jeddah", "category":"electronic", "title":{"ar":"التحدي يبدأ هنا", "en":"Challenge accepted"}, "description":{"ar":"تجارب إلكترونية تجمع مهارة اللعب وروح المنافسة.", "en":"Electronic games that bring skill and a friendly competitive spirit together."}, "icon":"gamepad", "age":"", "minHeight":"", "price":"", "status":"unconfirmed", "image":"", "featured":true},
+    {"id":"train", "branchId":"jeddah", "category":"family", "title":{"ar":"رحلة القطار", "en":"All aboard"}, "description":{"ar":"رحلة صغيرة بروح المغامرة، ضمن تجارب الجزيرة العائلية.", "en":"A little journey with a sense of adventure, part of the island’s family experiences."}, "icon":"train", "age":"", "minHeight":"", "price":"", "status":"unconfirmed", "image":"", "featured":false},
+    {"id":"jump", "branchId":"jeddah", "category":"adventure", "title":{"ar":"مساحة للحركة", "en":"Room to move"}, "description":{"ar":"ألعاب القفز والحركة لمن يحبون النشاط والانطلاق.", "en":"Jumping and active play for those who love to keep moving."}, "icon":"spark", "age":"", "minHeight":"", "price":"", "status":"unconfirmed", "image":"", "featured":false}
+  ],
+  "announcements": [],
+  "faqs": [
+    {"question":{"ar":"كيف أعرف الألعاب المناسبة لطفلي؟", "en":"How do I choose suitable games for my child?"}, "answer":{"ar":"تختلف شروط العمر والطول حسب اللعبة. راجع تفاصيل اللعبة واسأل فريق الموقع عن شروط الاستخدام قبل اللعب.", "en":"Age and height requirements vary by ride. Check the game details and ask the on-site team about the requirements before playing."}},
+    {"question":{"ar":"أين أجد الأسعار والعروض؟", "en":"Where can I find prices and offers?"}, "answer":{"ar":"تُعرض الباقات والعروض المعتمدة في صفحة الأسعار والعروض عند توفرها. تأكد من السعر وشروط العرض قبل الشراء.", "en":"Confirmed packages and offers appear on the prices and offers page when available. Check the price and offer terms before purchasing."}},
+    {"question":{"ar":"هل تتوفر زيارات للمجموعات أو حفلات؟", "en":"Are group visits or parties available?"}, "answer":{"ar":"يُرجى تنسيق أي زيارة جماعية أو فعالية مسبقًا مع المؤسسة. لا تُعد الخدمة أو الزيارة مؤكدة إلا بعد الاتفاق المباشر.", "en":"Please coordinate group visits and events with the establishment in advance. Availability is confirmed only after a direct agreement."}},
+    {"question":{"ar":"هل جميع الألعاب متاحة دائمًا؟", "en":"Are all games always available?"}, "answer":{"ar":"قد تتغير إتاحة الألعاب حسب التشغيل والصيانة. حالة اللعبة الموضحة في الموقع تُحدّث عند ورود معلومات تشغيلية معتمدة.", "en":"Availability can change due to operations and maintenance. Game status is updated when confirmed operational information is available."}}
+  ]
+}

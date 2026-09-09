@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Home from '../../components/Home.astro';
+import Content from '../../components/Content.astro';
+import {pages, type Lang} from '../../lib/site';
+export function getStaticPaths() {return ['ar','en'].flatMap(lang=>pages.map(page=>({params:{lang,page:page||undefined},props:{lang,page}})));}
+const {lang,page} = Astro.props as {lang:Lang,page:string};
+---
+<Layout lang={lang} page={page}>{page ? <Content lang={lang} page={page}/> : <Home lang={lang}/>}</Layout>
