@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import {illustrativeImages as editorialImages,generatedGameIds} from '../lib/game-media';
 import IslandMap from './IslandMap.astro';
 import Waves from './Waves.astro';
 import Trips from './Trips.astro';
@@ -9,7 +10,7 @@ const t=(ar:string,en:string)=>tr(lang,ar,en);
 const intro:Record<string,string>={
  trips:t('من أول فكرة للرحلة إلى يوم الزيارة: معلومات تساعد المدارس والمجموعات على التنسيق بوضوح.','From the first idea to the day of the visit: information to help schools and groups coordinate with confidence.'),
  about:t('هوية سعودية في قطاع الترفيه. تعرّف على المؤسسة وأنشطتها وبياناتها التجارية.','A Saudi identity in the entertainment sector. Get to know our establishment, activities and registration details.'),
- experiences:t('حركة، ومنافسة، ولحظات عائلية. اكتشف أنواع التجارب التي تجعل لكل زيارة حكاية.','Movement, a little competition, and family moments. Discover experiences that make every visit a story.'),
+ experiences:t('من جولة القطار إلى قفزات الحماس وتحديات الأركيد؛ لكل تجربة متعتها، ولكل زيارة حكاية تجمع العائلة.','All aboard the train, into the air, or on to the next arcade challenge. Every adventure brings the family a new story to share.'),
  business:t('مساحة للتواصل المهني، والتعريف بأنشطة المؤسسة، واستكشاف فرص التعاون.','A space for professional connections, our establishment’s activities, and opportunities to collaborate.'),
  visit:t('كل زيارة جميلة تبدأ بتخطيط بسيط. راجع معلومات الفرع والتفاصيل المهمة قبل الانطلاق.','Every good visit starts with a little planning. Check branch information and useful details before setting off.'),
  offers:t('تعرّف على الباقات والعروض المعتمدة عند توفرها، واختر ما يناسب زيارتكم.','Discover confirmed packages and offers when available, and choose what suits your visit.'),
@@ -22,19 +23,19 @@ const activities=[
  {icon:'cup',title:t('المأكولات الخفيفة','Food & refreshments'),description:t('نشاط محلات الوجبات السريعة ضمن السجل التجاري.','Fast-food outlet activity listed in the commercial registration.')}
 ];
 const branch=site.branches[0];
-const editorialImages:Record<string,string>={cars:'images/bumper-cars.webp',carousel:'images/carousel.webp',arcade:'images/arcade.webp'};
+
 const statusLabel=(status:string)=>status==='available'?t('متاحة حسب آخر تحديث','Available at last update'):status==='unavailable'?t('متوقفة مؤقتًا','Temporarily unavailable'):t('تحقق من الإتاحة','Check availability');
 type Offer={id:string;title:{ar:string;en:string};description:{ar:string;en:string};amount?:number;start?:string;end?:string;published?:boolean};
 const today=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Riyadh'});
 const offers=(branch.offers as Offer[]).filter(o=>o.published&&(!o.start||o.start<=today)&&(!o.end||o.end>=today));
 const pricing=(branch.pricing as Offer[]).filter(item=>item.published);
 ---
-<section class="page-intro"><div class="container"><div class="breadcrumbs"><a href={href(lang)}>{t('الرئيسية','Home')}</a><span>/</span><span>{titles[page][lang]}</span></div><h1>{page==='experiences'?t('وش جوّكم اليوم؟','What’s your kind of fun?'):titles[page][lang]}</h1><p>{intro[page]}</p></div></section>
+<section class="page-intro"><div class="container"><div class="breadcrumbs"><a href={href(lang)}>{t('الرئيسية','Home')}</a><span>/</span><span>{titles[page][lang]}</span></div><h1>{page==='experiences'?t('في جزيرتنا… لكل مغامرة حكاية','An island of adventures. A world of stories.'):titles[page][lang]}</h1><p>{intro[page]}</p></div></section>
 
 {page==='experiences'&&<>
-  <Waves/><section class="section container map-section"><div class="section-heading"><div><div class="eyebrow">{t('نظرة على عالم الجزيرة','A LOOK AT THE ISLAND')}</div><h2>{t('من وين نبدأ؟','Where shall we start?')}</h2></div></div><IslandMap lang={lang} interactive/></section>
+  <Waves/><section class="section container map-section"><div class="section-heading"><div><div class="eyebrow">{t('نظرة على عالم الجزيرة','A LOOK AT THE ISLAND')}</div><h2>{t('من أين تبدأ مغامرتكم؟','Where shall we start?')}</h2></div></div><IslandMap lang={lang} interactive/></section>
   <section class="section container"><div class="filters" role="group" aria-label={t('تصفية التجارب','Filter experiences')}>{[['all',t('كل التجارب','All experiences')],['family',t('لحظات عائلية','Family moments')],['adventure',t('حركة وحماس','Action & adventure')],['electronic',t('ألعاب إلكترونية','Electronic games')]].map(([id,label])=><button class="filter" data-filter={id} aria-pressed={id==='all'?'true':'false'}>{label}</button>)}<span class="filter-count" id="filter-count" aria-live="polite">{site.games.length} {t('تجارب','experiences')}</span></div>
-  <div class="game-grid">{site.games.map(game=><article class="game-card" id={game.id} data-game-category={game.category}><div class="game-art">{game.image||editorialImages[game.id]?<><img src={asset(game.image||editorialImages[game.id])} alt={game.image?game.title[lang]:t('صورة تعبيرية: ','Illustrative photograph: ')+game.title[lang]} loading="lazy" width="500" height="300"/>{!game.image&&<span class="game-photo-label">{t('صورة تعبيرية','Illustrative photo')}</span>}</>:<Icon name={game.icon} size={63}/>}</div><div class="game-body"><span class:list={['status',game.status]}>{statusLabel(game.status)}</span><h3>{game.title[lang]}</h3><p>{game.description[lang]}</p><button data-open-game={game.id}>{t('تفاصيل التجربة','Experience details')}<Icon name="arrow" size={18} class="direction-arrow"/></button></div></article>)}</div><p class="section-note">{t('التصنيفات مستمدة من تصور الموقع. تُستكمل أسماء الألعاب الفعلية وشروطها وصورها بعد اعتماد بيانات التشغيل.','Categories reflect the website concept. Individual ride names, requirements and photos will be completed once operational details are confirmed.')}</p>
+  <div class="game-grid">{site.games.map(game=><article class="game-card" id={game.id} data-game-category={game.category}><div class="game-art">{game.image||editorialImages[game.id]?<><img src={asset(game.image||editorialImages[game.id])} alt={game.image?game.title[lang]:(generatedGameIds.has(game.id)?t('صورة مولّدة بالذكاء الاصطناعي: ','AI-generated illustration: '):t('صورة تعبيرية: ','Illustrative photograph: '))+game.title[lang]} loading="lazy" width="500" height="300"/>{!game.image&&<span class="game-photo-label">{generatedGameIds.has(game.id)?t('صورة مولّدة بالذكاء الاصطناعي','AI-generated image'):t('صورة تعبيرية','Illustrative photo')}</span>}</>:<Icon name={game.icon} size={63}/>}</div><div class="game-body"><span class:list={['status',game.status]}>{statusLabel(game.status)}</span><h3>{game.title[lang]}</h3><p>{game.description[lang]}</p><button data-open-game={game.id}>{t('تفاصيل التجربة','Experience details')}<Icon name="arrow" size={18} class="direction-arrow"/></button></div></article>)}</div><p class="section-note">{t('التصنيفات مستمدة من تصور الموقع. تُستكمل أسماء الألعاب الفعلية وشروطها وصورها بعد اعتماد بيانات التشغيل.','Categories reflect the website concept. Individual ride names, requirements and photos will be completed once operational details are confirmed.')}</p>
 
   </section>
 

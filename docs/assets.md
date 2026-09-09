@@ -16,6 +16,38 @@ The photographs were downloaded from the verified provider image URLs and resize
 
 Fonts: Alexandria for body text, Baloo Bhaijaan 2 for display headings, loaded through Google Fonts. The interface mark is an original Ferris-wheel icon treatment, not an official supplied logo.
 
+## Generated game-card images
+
+Created using the built-in `image_gen` tool, exported to 1100 × 733 WebP. Both are conceptual AI imagery, labeled in game cards and island details; neither depicts the actual venue.
+
+- `public/images/train-ai.webp`
+- `public/images/jump-ai.webp`
+
+Train prompt:
+```text
+Use case: photorealistic-natural
+Asset type: amusement website ride card, conceptual AI image (not an actual venue photograph)
+Primary request: landscape 3:2 editorial photo-style image of a cheerful small children's amusement park train.
+Scene/backdrop: palms and a neat garden in late afternoon warm sunlight.
+Subject: golden yellow locomotive with deep green detailing and orange carriages rounding a low track. Ride entirely empty.
+Style/medium: realistic editorial photography, natural materials and believable scale.
+Composition/framing: entire main subject centered and comfortably within the frame, safe for a centered 5:3 card crop; landscape 3:2.
+Lighting/mood: warm late afternoon sunlight, cheerful and inviting.
+Constraints: no people, no text, no logo, no watermark. Generate exactly one image.
+```
+
+Jump prompt:
+```text
+Use case: photorealistic-natural
+Asset type: amusement website ride card, conceptual AI image (not an actual venue photograph)
+Primary request: landscape 3:2 editorial photo-style image of a colorful indoor trampoline/activity play area.
+Subject: golden yellow, leaf green and orange padded borders, black jumping mats and visible safety nets.
+Style/medium: realistic editorial photography with believable padded surfaces and lively geometry.
+Composition/framing: broad view of the main play area centered and comfortably within the frame, safe for a centered 5:3 card crop; landscape 3:2.
+Lighting/mood: tasteful bright warm lighting, colorful and inviting.
+Constraints: no people, no text, no logos, no watermarks. Generate exactly one image.
+```
+
 ## Superseded concept (not used in current pages)
 
 Asset: `public/images/island-concept.webp`.

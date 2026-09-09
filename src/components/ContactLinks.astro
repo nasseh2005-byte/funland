@@ -1,0 +1,14 @@
+---
+import channels from '../data/social.json';
+import Icon from './Icon.astro';
+import {tr,type Lang} from '../lib/site';
+const {lang}=Astro.props as {lang:Lang};
+const t=(ar:string,en:string)=>tr(lang,ar,en);
+---
+<section class="social-contact" id="contact" aria-labelledby="contact-title">
+  <div><h2 id="contact-title">{t('تواصل معنا','Connect with us')}</h2><p>{t('حسابات الجزيرة على منصات التواصل — قريبًا.','Find the island on social media — coming soon.')}</p></div>
+  <div class="social-buttons">{channels.map(channel=>channel.url?<a class={'social-button '+channel.id} href={channel.url} target="_blank" rel="noopener noreferrer"><Icon name={channel.id} size={22}/>{channel.label[lang]}</a>:<button type="button" class={'social-button '+channel.id} disabled title={t('سيتوفر رابط الحساب قريبًا','Account link coming soon')}><Icon name={channel.id} size={22}/>{channel.label[lang]}</button>)}</div>
+</section>
+<style>
+.social-contact{border-top:1px solid var(--line);padding-block:30px;display:flex;align-items:center;justify-content:space-between;gap:24px;scroll-margin-top:115px}.social-contact h2{font-family:var(--heading);font-size:32px;line-height:1.4}.social-contact p{font-size:13px;margin-top:5px;color:var(--muted)}.social-buttons{display:flex;flex-wrap:wrap;gap:12px}.social-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:11px 20px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);font-size:14px!important;font-weight:500;opacity:1}.social-button:disabled{cursor:default}.instagram svg{color:#b94678}.snapchat svg{color:#806517}.tiktok svg{color:#298779}[data-theme=dark] .instagram svg{color:#f392bb}[data-theme=dark] .snapchat svg{color:#ffdb68}[data-theme=dark] .tiktok svg{color:#7bd6c6}.social-button[href]:hover{border-color:var(--green);background:var(--surface)}@media(max-width:900px){.social-contact{align-items:start;flex-direction:column}.social-button{padding-inline:16px}.social-buttons{gap:10px}}@media(max-width:380px){.social-buttons{width:100%;display:grid;grid-template-columns:1fr}.social-button{justify-content:start}}
+</style>
