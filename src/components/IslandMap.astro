@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+import {asset,href,tr,type Lang} from '../lib/site';
+const {lang,interactive=false}=Astro.props as {lang:Lang;interactive?:boolean};
+const t=(ar:string,en:string)=>tr(lang,ar,en);
+const areas=[{id:'carousel',icon:'wheel',ar:'واحة العائلة',en:'Family oasis'},{id:'cars',icon:'car',ar:'شاطئ المغامرة',en:'Adventure shore'},{id:'arcade',icon:'gamepad',ar:'جزيرة التحدّي',en:'Challenge island'}];
+---
+<div class="beach-map"><img src={asset('images/island-beach.webp')} alt={t('خريطة تصورية لجزيرة المرح: شاطئ رملي ونخيل ومناطق ألعاب متصلة بممرات وتحيط بها الأمواج','Conceptual Fun Island map: a sandy beach, palm trees and game areas connected by paths, surrounded by waves')} width="1600" height="914" loading="lazy"/>
+<div class="beach-pins">{areas.map((area,index)=>interactive?<button class={`map-pin beach-pin pin-${index}`} data-open-game={area.id}><Icon name={area.icon} size={21}/><span>{t(area.ar,area.en)}</span><Icon name="plus" size={17}/></button>:<a class={`beach-pin pin-${index}`} href={href(lang,'experiences')+'#'+area.id}><Icon name={area.icon} size={21}/><span>{t(area.ar,area.en)}</span><Icon name="arrow" class="direction-arrow" size={17}/></a>)}</div></div>
+<p class="map-disclaimer">{t('خريطة استكشافية من عالم جزيرة المرح؛ الشاطئ والنخيل عناصر للهوية وليست وصفًا لمرافق الموقع الفعلي.','An imaginative guide to the world of Fun Island. The beach and palms are brand elements, not a representation of the actual venue’s facilities.')}</p>

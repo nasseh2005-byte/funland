@@ -1,0 +1,7 @@
+---
+import {href,type Lang} from '../../lib/site';
+export function getStaticPaths(){return ['ar','en'].map(lang=>({params:{lang}}));}
+const lang=Astro.params.lang as Lang;
+const target=href(lang,'business')+'#registration';
+---
+<!doctype html><html lang={lang} dir={lang==='ar'?'rtl':'ltr'}><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width"/><meta http-equiv="refresh" content={`0;url=${target}`}/><link rel="canonical" href={new URL(href(lang,'business'),Astro.site)}/><title>{lang==='ar'?'عن المؤسسة — الأعمال والشركات':'About the establishment — Business'}</title></head><body><a href={target}>{lang==='ar'?'انتقل إلى بيانات المؤسسة والأعمال':'Go to establishment and business details'}</a></body></html>

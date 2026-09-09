@@ -1,11 +1,12 @@
 ---
 import '../styles/global.css';
+import '../styles/island.css';
 import Icon from '../components/Icon.astro';
 import {site, href, asset, tr, titles, type Lang} from '../lib/site';
 interface Props {lang: Lang; page?: string;}
 const {lang, page = ''} = Astro.props;
 const t = (ar: string, en: string) => tr(lang, ar, en);
-const nav = [['', t('الرئيسية','Home')], ['about',t('عن المؤسسة','About us')], ['experiences',t('تجارب الجزيرة','Experiences')], ['business',t('الأعمال والشراكات','Business')]];
+const nav = [['', t('الرئيسية','Home')], ['experiences',t('تجارب الجزيرة','Experiences')], ['trips',t('الرحلات والمجموعات','Group visits')], ['business',t('الأعمال والشركات','Business')]];
 const description = t('تعرف على مؤسسة ملاهي جزيرة المرح الاقتصادية في جدة، واستكشف تجارب الترفيه العائلي ومعلومات المؤسسة وخطط لزيارتك.', 'Discover Fun Island in Jeddah: family entertainment, establishment information, experiences and visit planning.');
 const title = titles[page]?.[lang] || titles[''][lang];
 const canonical = new URL(href(lang, page), Astro.site);
@@ -15,7 +16,7 @@ const canonical = new URL(href(lang, page), Astro.site);
   <head>
     <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{title}{page ? t(' | جزيرة المرح', ' | Fun Island') : ''}</title>
-    <meta name="description" content={description}/><meta name="theme-color" content="#123dba"/>
+    <meta name="description" content={description}/><meta name="theme-color" content="#ffcc32"/>
     <link rel="canonical" href={canonical}/>
     <link rel="alternate" hreflang="ar" href={new URL(href('ar', page), Astro.site)}/>
     <link rel="alternate" hreflang="en" href={new URL(href('en', page), Astro.site)}/>
@@ -23,7 +24,7 @@ const canonical = new URL(href(lang, page), Astro.site);
     <meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={canonical}/>
     <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')}/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;450;500;600;650;700;750;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;450;500;600;650;700;750;800&family=Baloo+Bhaijaan+2:wght@500;600;700;800&display=swap" rel="stylesheet"/>
     <script is:inline>
       try { const theme = localStorage.getItem('fi-theme'); document.documentElement.dataset.theme = theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = 'light'; }
     </script>
@@ -48,8 +49,8 @@ const canonical = new URL(href(lang, page), Astro.site);
     <main id="main"><slot/></main>
     <footer class="footer"><div class="container">
       <div class="footer-top"><div class="footer-brand"><a class="brand" href={href(lang)}><span class="brand-mark"><Icon name="wheel" size={31}/></span><span class="brand-type"><strong>{t('جزيرة المرح','Fun Island')}</strong><small>FUN ISLAND</small></span></a><p>{t('مساحة للبهجة. وذكريات تجمعنا.','Room for joy. Memories that bring us together.')}</p></div>
-      <div><h3>{t('اكتشف الجزيرة','Discover the island')}</h3><a href={href(lang,'experiences')}>{t('الألعاب والتجارب','Games & experiences')}</a><a href={href(lang,'offers')}>{t('الأسعار والعروض','Prices & offers')}</a><a href={href(lang,'visit')}>{t('خطط لزيارتك','Plan your visit')}</a></div>
-      <div><h3>{t('المؤسسة','The establishment')}</h3><a href={href(lang,'about')}>{t('من نحن','About us')}</a><a href={href(lang,'business')}>{t('الأعمال والشراكات','Business & partnerships')}</a><a href={href(lang,'about')+'#registration'}>{t('بيانات المؤسسة','Establishment details')}</a></div>
+      <div><h3>{t('اكتشف الجزيرة','Discover the island')}</h3><a href={href(lang,'experiences')}>{t('الألعاب والتجارب','Games & experiences')}</a><a class="group-footer-link" href={href(lang,'trips')}>{t('الرحلات والمجموعات','Trips & group visits')}</a><a href={href(lang,'offers')}>{t('الأسعار والعروض','Prices & offers')}</a><a href={href(lang,'visit')}>{t('خطط لزيارتك','Plan your visit')}</a></div>
+      <div><h3>{t('المؤسسة','The establishment')}</h3><a href={href(lang,'business')}>{t('من نحن','About us')}</a><a href={href(lang,'business')}>{t('الأعمال والشركات','Business & companies')}</a><a href={href(lang,'business')+'#registration'}>{t('بيانات المؤسسة','Establishment details')}</a></div>
       <div class="footer-legal"><h3>{t('بيانات التسجيل','Registration details')}</h3><p>{t('السجل التجاري','Commercial registration')}<b dir="ltr">{site.organization.registration}</b></p><p>{t('الرقم الوطني الموحد','Unified national number')}<b dir="ltr">{site.organization.unifiedNumber}</b></p></div></div>
       <div class="footer-bottom"><span>© {new Date().getFullYear()} {site.organization.name[lang]}</span><a href={href(lang,'privacy')}>{t('الخصوصية','Privacy')}</a><span>{t('صُنعت للبهجة','Made for joyful moments')}<Icon name="spark" size={15}/></span></div>
     </div></footer>

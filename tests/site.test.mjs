@@ -7,7 +7,7 @@ import {getOpeningStatus} from '../src/lib/hours.mjs';
 
 const root=path.resolve('dist');
 const base=(process.env.BASE_PATH||'/funland').replace(/\/$/,'');
-const routes=['','about','experiences','business','visit','offers','privacy'];
+const routes=['','trips','experiences','business','visit','offers','privacy'];
 for(const lang of ['ar','en'])for(const route of routes){
   test(`${lang}/${route}: metadata, language, all local links and assets resolve`,()=>{
     const html=fs.readFileSync(path.join(root,lang,route,'index.html'),'utf8');
