@@ -12,6 +12,8 @@ The photographs were downloaded from the verified provider image URLs and resize
 
 `public/images/island-beach.webp` was created with the built-in image generation tool. Prompt: landscape top-down/oblique illustrated sandy island edged with a narrow turquoise sea and white surf, green palm trees framing both sides, three grassy clearings connected by golden sand paths, small carousel, bumper-car track and arcade pavilion; sunny beach mood with yellow umbrellas. Editorial gouache / screen-print style, subtle paper grain, simplified shapes and irregular brushwork. Dominant golden sand and leafy greens with orange accents. Cream background. No text, logos, glossy 3D, plastic render, floating rocks, pirates or treasure. Conceptual wayfinding map, not a real venue floor plan.
 
+`public/images/island-night.webp` is a nighttime edit of the same island, generated with the built-in image tool. The brief preserves the exact camera, geometry, coastline, trees, rides, pavilion and paths; changes lighting to midnight teal water, desaturated foliage, moonlit sand and amber carousel, pavilion and path lights; retains the gouache texture and excludes text, people, moon and UI. The separate interface moon uses the existing icon system. Both images share a 1600 × 914 canvas for continuous day/night camera alignment.
+
 Fonts: Alexandria for body text, Baloo Bhaijaan 2 for display headings, loaded through Google Fonts. The interface mark is an original Ferris-wheel icon treatment, not an official supplied logo.
 
 ## Superseded concept (not used in current pages)

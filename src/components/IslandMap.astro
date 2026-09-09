@@ -1,10 +1,32 @@
 ---
 import Icon from './Icon.astro';
-import {asset,href,tr,type Lang} from '../lib/site';
-const {lang,interactive=false}=Astro.props as {lang:Lang;interactive?:boolean};
+import {asset,href,tr,site,type Lang} from '../lib/site';
+const {lang}=Astro.props as {lang:Lang;interactive?:boolean};
 const t=(ar:string,en:string)=>tr(lang,ar,en);
-const areas=[{id:'carousel',icon:'wheel',ar:'واحة العائلة',en:'Family oasis'},{id:'cars',icon:'car',ar:'شاطئ المغامرة',en:'Adventure shore'},{id:'arcade',icon:'gamepad',ar:'جزيرة التحدّي',en:'Challenge island'}];
+const areas=[{id:'family',icon:'wheel',ar:'واحة العائلة',en:'Family oasis'},{id:'adventure',icon:'car',ar:'شاطئ المغامرة',en:'Adventure shore'},{id:'electronic',icon:'gamepad',ar:'جزيرة التحدّي',en:'Challenge island'}];
+const photos:Record<string,string>={cars:'images/bumper-cars.webp',carousel:'images/carousel.webp',arcade:'images/arcade.webp'};
 ---
-<div class="beach-map"><img src={asset('images/island-beach.webp')} alt={t('خريطة تصورية لجزيرة المرح: شاطئ رملي ونخيل ومناطق ألعاب متصلة بممرات وتحيط بها الأمواج','Conceptual Fun Island map: a sandy beach, palm trees and game areas connected by paths, surrounded by waves')} width="1600" height="914" loading="lazy"/>
-<div class="beach-pins">{areas.map((area,index)=>interactive?<button class={`map-pin beach-pin pin-${index}`} data-open-game={area.id}><Icon name={area.icon} size={21}/><span>{t(area.ar,area.en)}</span><Icon name="plus" size={17}/></button>:<a class={`beach-pin pin-${index}`} href={href(lang,'experiences')+'#'+area.id}><Icon name={area.icon} size={21}/><span>{t(area.ar,area.en)}</span><Icon name="arrow" class="direction-arrow" size={17}/></a>)}</div></div>
+<script src="../scripts/explorer.ts"></script>
+<section class="island-explorer" data-explorer data-view="overview" aria-label={t('استكشاف جزيرة المرح','Explore Fun Island')}>
+  <div class="explorer-viewport">
+    <div class="island-camera" data-camera>
+      <img class="island-day" src={asset('images/island-beach.webp')} alt={t('جزيرة المرح نهارًا: شاطئ ونخيل ومناطق ألعاب','Fun Island by day: beach, palms and game areas')} width="1600" height="914" loading="lazy"/>
+      <img class="island-night" src={asset('images/island-night.webp')} alt={t('جزيرة المرح ليلًا: ألعاب وممرات مضاءة بإضاءة دافئة','Fun Island by night: warmly lit rides and paths')} width="1600" height="914" loading="lazy"/>
+      <div class="explorer-pins" data-overview-pins>{areas.map((area,index)=><button class={'explore-pin area-'+index} data-enter-area={area.id} aria-expanded="false"><Icon name={area.icon} size={22}/><span>{t(area.ar,area.en)}</span><Icon name="plus" size={16}/></button>)}</div>
+    </div>
+    <div class="scene-atmosphere" aria-hidden="true"></div>
+    <button class="scene-weather" data-scene-theme aria-label={t('تبديل الليل والنهار','Toggle night and day')} aria-pressed="false"><span class="scene-sun"><Icon name="sun" size={39}/></span><span class="scene-moon"><Icon name="moon" size={38}/></span><span class="scene-day-label">{t('نهار الجزيرة','Island daytime')}</span><span class="scene-night-label">{t('ليل الجزيرة','Island nighttime')}</span></button>
+    <div class="scene-caption" data-overview-caption><span>{t('أهلًا في جزيرتكم','WELCOME TO YOUR ISLAND')}</span><strong>{t('اختاروا منطقة… وادخلوا جوّها.','Pick an area. Step into its world.')}</strong></div>
+    <div class="scene-toolbar" data-scene-toolbar hidden><button class="scene-back" data-leave-island><Icon name="arrow" size={18}/>{t('العودة للجزيرة','Back to the island')}</button><span class="scene-area-label" data-current-area></span></div>
+    <nav class="scene-navigation" data-scene-navigation hidden aria-label={t('التنقل بين مناطق الجزيرة','Navigate island areas')}><button data-previous-area aria-label={t('المنطقة السابقة','Previous area')}><Icon name="arrow" size={20}/></button><div>{areas.map(area=><button data-switch-area={area.id} aria-label={t(area.ar,area.en)} aria-pressed="false"><Icon name={area.icon} size={20}/></button>)}</div><button data-next-area aria-label={t('المنطقة التالية','Next area')}><Icon name="arrow" size={20} class="next-area-arrow"/></button></nav>
+  </div>
+  <section class="island-game-deck" data-game-deck hidden aria-label={t('ألعاب المنطقة وتفاصيلها','Area games and details')}>
+    <div class="deck-heading"><span>{t('ألعاب هذه المنطقة','GAMES IN THIS AREA')}</span><div class="area-games" data-area-games>{site.games.map(game=><button data-select-game={game.id} data-category={game.category} aria-pressed="false">{game.title[lang]}</button>)}</div></div>
+    {site.games.map(game=><article class="scene-game" data-scene-game={game.id} hidden aria-labelledby={'scene-title-'+game.id}>
+      <div class="scene-game-visual">{game.image||photos[game.id]?<><img src={asset(game.image||photos[game.id])} alt={game.image?game.title[lang]:t('صورة تعبيرية لتجربة ','Illustrative photo: ')+game.title[lang]} width="500" height="360" loading="lazy"/>{!game.image&&<span>{t('صورة تعبيرية','Illustrative photo')}</span>}</>:<Icon name={game.icon} size={72}/>}</div>
+      <div class="scene-game-info"><div class="scene-game-title"><h3 id={'scene-title-'+game.id} tabindex="-1">{game.title[lang]}</h3><span class={'status '+game.status}>{game.status==='available'?t('متاحة حسب آخر تحديث','Available at last update'):game.status==='unavailable'?t('متوقفة مؤقتًا','Temporarily unavailable'):t('تحقق من الإتاحة','Check availability')}</span></div><p>{game.description[lang]}</p><dl class="scene-game-facts"><div><dt>{t('العمر','Age')}</dt><dd>{game.age||t('يُراجع حسب اللعبة','Check for this ride')}</dd></div><div><dt>{t('الطول','Height')}</dt><dd>{game.minHeight||t('يُراجع مع الفريق','Check with the team')}</dd></div><div><dt>{t('السعر','Price')}</dt><dd>{game.price||t('بانتظار الاعتماد','To be confirmed')}</dd></div></dl><a class="text-link" href={href(lang,'visit')}>{t('خططوا لزيارتكم','Plan your visit')}<Icon name="arrow" size={17} class="direction-arrow"/></a></div>
+    </article>)}
+  </section>
+  <p class="sr-only" data-scene-status role="status" aria-live="polite"></p>
+</section>
 <p class="map-disclaimer">{t('خريطة استكشافية من عالم جزيرة المرح؛ الشاطئ والنخيل عناصر للهوية وليست وصفًا لمرافق الموقع الفعلي.','An imaginative guide to the world of Fun Island. The beach and palms are brand elements, not a representation of the actual venue’s facilities.')}</p>

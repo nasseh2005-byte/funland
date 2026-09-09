@@ -38,15 +38,16 @@ for(const lang of ['ar','en'])for(const route of routes){
   });
 }
 
-test('Game filters, pins and accessible dialogs share real game IDs',()=>{
+test('Every game opens an inline island detail, with no modal remaining',()=>{
   const {document}=parseHTML(fs.readFileSync(path.join(root,'ar/experiences/index.html'),'utf8'));
   for(const button of document.querySelectorAll('[data-open-game]')){
-    const dialog=document.getElementById(`detail-${button.dataset.openGame}`);
-    assert.equal(dialog?.tagName,'DIALOG');
-    assert.ok(document.getElementById(dialog.getAttribute('aria-labelledby')));
-    assert.ok(dialog.querySelector('[data-close-dialog]'));
+    const panel=document.querySelector(`[data-scene-game="${button.dataset.openGame}"]`);
+    assert.equal(panel?.tagName,'ARTICLE');
+    assert.ok(document.getElementById(panel.getAttribute('aria-labelledby')));
   }
   assert.equal(document.querySelectorAll('[data-game-category]').length,5);
+  assert.equal(document.querySelectorAll('dialog').length,0);
+  assert.equal(document.querySelectorAll('[data-enter-area]').length,3);
   assert.equal(document.querySelectorAll('[data-filter][aria-pressed=true]').length,1);
 });
 test('Unknown operating data never claims open or a real price',()=>{

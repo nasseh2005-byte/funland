@@ -1,10 +1,10 @@
 import {getOpeningStatus} from '../lib/hours.mjs';
 function storageSet(key: string, value: string) {try {localStorage.setItem(key,value);} catch { /* The UI works when storage is unavailable. */ }}
 const root = document.documentElement;
-const themeButton = document.querySelector<HTMLButtonElement>('.theme-toggle');
-function updateThemeButton() {themeButton?.setAttribute('aria-pressed',String(root.dataset.theme==='dark'));}
+const themeButtons = document.querySelectorAll<HTMLButtonElement>('.theme-toggle, [data-scene-theme]');
+function updateThemeButton() {themeButtons.forEach(button=>button.setAttribute('aria-pressed',String(root.dataset.theme==='dark')));}
 updateThemeButton();
-themeButton?.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';storageSet('fi-theme',root.dataset.theme);updateThemeButton();});
+themeButtons.forEach(button=>button.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';storageSet('fi-theme',root.dataset.theme);updateThemeButton();}));
 const menuButton = document.querySelector<HTMLButtonElement>('.menu-toggle');
 const menu = document.querySelector<HTMLElement>('#mobile-nav');
 function closeMenu() {if(menu)menu.hidden=true;menuButton?.setAttribute('aria-expanded','false');}
@@ -19,14 +19,6 @@ document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach(button=>bu
   const output=document.querySelector('#filter-count');if(output)output.textContent=`${count} ${root.lang==='ar'?'تجارب':'experiences'}`;
   track('games_filter',{category});
 }));
-document.querySelectorAll<HTMLButtonElement>('[data-open-game]').forEach(button=>button.addEventListener('click',()=>{
-  const dialog=document.getElementById(`detail-${button.dataset.openGame}`) as HTMLDialogElement|null;
-  dialog?.showModal();track('game_view',{game:button.dataset.openGame});
-}));
-document.querySelectorAll<HTMLDialogElement>('dialog').forEach(dialog=>{
-  dialog.querySelector('[data-close-dialog]')?.addEventListener('click',()=>dialog.close());
-  dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
-});
 function track(name: string, properties: Record<string,unknown>={}) {
   // No analytics vendor, cookies, personal data or network request by default.
   window.dispatchEvent(new CustomEvent('funisland:analytics',{detail:{name,properties}}));
