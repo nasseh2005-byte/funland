@@ -44,6 +44,24 @@ test('Game filters change visible results',()=>{
   document.querySelector('[data-filter=all]').click();
   assert.equal([...document.querySelectorAll('[data-game-category]')].filter(n=>!n.hidden).length,5);
 });
+for(const lang of ['ar','en'])test(lang+': the adventure picker changes the visible experience and keeps its island link',()=>{
+  const {window,document}=parseHTML(fs.readFileSync('dist/'+lang+'/index.html','utf8'));
+  const code=ts.transpile(fs.readFileSync('src/scripts/chooser.ts','utf8'),{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS});
+  vm.runInNewContext(code,{window,document});
+  const tabs=[...document.querySelectorAll('[data-choose]')];
+  const panels=[...document.querySelectorAll('[data-choice-panel]')];
+  assert.equal(tabs.length,3);
+  tabs[1].click();
+  assert.equal(tabs[1].getAttribute('aria-selected'),'true');
+  assert.equal(panels[1].hidden,false);
+  assert.ok(panels[0].hidden&&panels[2].hidden);
+  assert.ok(panels[1].querySelector('a').getAttribute('href').endsWith('/experiences/#cars'));
+  tabs[2].click();
+  assert.ok(panels[2].querySelector('a').getAttribute('href').endsWith('/experiences/#arcade'));
+  const arrow=new window.Event('keydown',{bubbles:true});arrow.key=lang==='ar'?'ArrowLeft':'ArrowRight';
+  tabs[2].dispatchEvent(arrow);
+  assert.equal(tabs[0].getAttribute('aria-selected'),'true');
+});
 for(const lang of ['ar','en'])test(lang+': enter, switch games/areas, change lighting and exit without a modal',()=>{
   const {document,window,getFocused}=setup(false,lang);
   const root=document.querySelector('[data-explorer]');

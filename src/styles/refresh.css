@@ -1,0 +1,35 @@
+/* A warmer shore palette and a tighter first screen on phones. */
+html,body{overflow-x:clip}
+.play-hero{background:radial-gradient(circle at 86% 26%,#ffe7a993 0,transparent 31%),radial-gradient(circle at 9% 75%,#a9d6bf45 0,transparent 32%),var(--bg)}
+.play-hero-grid{min-height:575px;gap:45px;padding-block:42px 55px}
+.play-copy h1{font-size:clamp(51px,5.4vw,76px);line-height:1.18}
+.play-copy>p{line-height:2}
+.play-collage{filter:drop-shadow(0 12px 24px #45391b1c)}
+.carousel-frame{box-shadow:9px 11px 0 #ffcc32,0 15px 35px #64352324}
+.fun-ribbon{transform:none;clip-path:polygon(0 0,100% 0,100% 94%,0 100%);padding-block:18px 24px}
+.island-discovery{background:linear-gradient(180deg,#f2e5b9,#e9dcb1)}
+.outing-section{background:radial-gradient(circle at 92% 8%,#417a51,transparent 40%),#285438}
+.business-teaser{border-block:1px solid var(--line);margin-block:32px}
+.page-intro{background-image:radial-gradient(circle at 80% 16%,#ffebad 0,transparent 35%),linear-gradient(120deg,#f6db85,#f1dd9d)}
+.section-note,.map-disclaimer{font-size:13px;line-height:1.85}
+.footer a:hover{color:var(--green)}
+[data-theme=dark] .play-hero{background:radial-gradient(circle at 84% 26%,#725b322e 0,transparent 34%),radial-gradient(circle at 6% 83%,#37685737 0,transparent 34%),var(--bg)}
+[data-theme=dark] .island-discovery{background:linear-gradient(180deg,#203b30,#253d2f)}
+[data-theme=dark] .outing-section{background:radial-gradient(circle at 85% 9%,#33654c,transparent 43%),#16392d}
+[data-theme=dark] .page-intro{background-image:radial-gradient(circle at 80% 12%,#8a6a3452 0,transparent 39%),linear-gradient(120deg,#203c30,#294435)}
+@media(max-width:760px){
+  .play-hero-grid{min-height:0;gap:6px;padding-block:23px 36px}
+  .play-copy{padding:0}.play-copy h1{font-size:clamp(42px,10.7vw,58px);line-height:1.13;margin-top:10px;letter-spacing:-.5px}
+  .play-copy>p{font-size:14px;line-height:1.8;margin-top:11px}
+  .play-copy .button-row{margin-top:18px;gap:12px}.play-copy .button{min-height:48px;padding:9px 15px;font-size:13px;gap:10px}
+  .hero-footnote{margin-top:20px}.play-collage{padding:6px 26px 23px 10px;max-width:440px}
+  .carousel-frame{height:325px;border-width:5px;transform:rotate(1deg)}.carousel-frame figcaption{font-size:22px}
+  .joy-sticker{width:76px;height:76px;top:3px;left:1px;outline-width:3px}.joy-sticker span{font-size:17px}.joy-sticker svg{width:14px;height:14px}
+  .arcade-snapshot{width:145px;padding:6px 6px 8px}.arcade-snapshot img{height:85px}.arcade-snapshot span{font-size:15px;padding-top:6px}
+  .collage-note{font-size:11px;bottom:-7px;max-width:168px}
+  .fun-ribbon span{font-size:25px}.fun-ribbon{padding-block:14px 20px}
+  .page-intro h1{font-size:clamp(34px,9vw,44px);line-height:1.25}
+  .section-note,.map-disclaimer{font-size:12px}
+}
+@media(max-width:380px){.play-copy h1{font-size:40px}.play-copy .button-row{gap:9px}.play-copy .text-link{font-size:11px}.carousel-frame{height:285px}}
+@media(prefers-reduced-motion:reduce){.play-collage,.carousel-frame{filter:none}}
