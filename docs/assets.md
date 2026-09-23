@@ -16,7 +16,7 @@ The photographs were downloaded from the verified provider image URLs and resize
 
 Fonts: Alexandria for body text, Baloo Bhaijaan 2 for display headings, loaded through Google Fonts.
 
-`public/images/fun-island-logo.jpg` is the logo supplied by the owner on 2026-09-23, copied unchanged from “WhatsApp Image 2026-09-23 at 2.03.38 PM.jpeg”. It replaces the placeholder Ferris-wheel branding in the header, footer and browser icon. The original black background, lettering and illustration are preserved.
+`public/images/fun-island-logo.jpg` is the original logo supplied by the owner on 2026-09-23. `public/images/fun-island-logo-transparent.webp` is an image-generation edit that removes the black outer background to transparency while retaining the mascot and Arabic lettering. The site uses the transparent version in the header and footer. `public/favicon.png` is a small transparent derivative for browser tabs.
 
 ## Generated game-card images
 
