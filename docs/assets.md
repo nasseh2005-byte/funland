@@ -14,7 +14,9 @@ The photographs were downloaded from the verified provider image URLs and resize
 
 `public/images/island-night.webp` is a nighttime edit of the same island, generated with the built-in image tool. The brief preserves the exact camera, geometry, coastline, trees, rides, pavilion and paths; changes lighting to midnight teal water, desaturated foliage, moonlit sand and amber carousel, pavilion and path lights; retains the gouache texture and excludes text, people, moon and UI. The separate interface moon uses the existing icon system. Both images share a 1600 × 914 canvas for continuous day/night camera alignment.
 
-Fonts: Alexandria for body text, Baloo Bhaijaan 2 for display headings, loaded through Google Fonts. The interface mark is an original Ferris-wheel icon treatment, not an official supplied logo.
+Fonts: Alexandria for body text, Baloo Bhaijaan 2 for display headings, loaded through Google Fonts.
+
+`public/images/fun-island-logo.jpg` is the logo supplied by the owner on 2026-09-23, copied unchanged from “WhatsApp Image 2026-09-23 at 2.03.38 PM.jpeg”. It replaces the placeholder Ferris-wheel branding in the header, footer and browser icon. The original black background, lettering and illustration are preserved.
 
 ## Generated game-card images
 

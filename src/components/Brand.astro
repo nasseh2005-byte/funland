@@ -1,0 +1,16 @@
+---
+import {asset,href,tr,type Lang} from '../lib/site';
+const {lang,footer=false}=Astro.props as {lang:Lang;footer?:boolean};
+const t=(ar:string,en:string)=>tr(lang,ar,en);
+---
+<a class:list={['brand','official-brand',{'official-brand-footer':footer}]} href={href(lang)} aria-label={t('جزيرة المرح — الرئيسية','Fun Island — Home')}>
+  <img class="official-logo" src={asset('images/fun-island-logo.jpg')} alt={t('شعار جزيرة المرح — للصغار والكبار','Fun Island logo — for children and adults')} width="1280" height="1280" loading={footer?'lazy':'eager'}/>
+  {!footer&&<span class="brand-type"><strong>{t('جزيرة المرح','Fun Island')}</strong><small>{t('FUN ISLAND','جزيرة المرح')}</small></span>}
+</a>
+<style>
+  .official-brand{gap:12px;min-width:0}
+  .official-logo{width:76px;height:76px;object-fit:contain;border-radius:12px;flex-shrink:0;background:#000}
+  .official-brand-footer .official-logo{width:168px;height:168px;border-radius:18px}
+  @media(max-width:760px){.official-brand{gap:8px}.official-logo{width:62px;height:62px}.official-brand .brand-type strong{font-size:22px}.official-brand .brand-type small{font-size:8px;letter-spacing:1px}}
+  @media(max-width:380px){.official-logo{width:54px;height:54px}.official-brand .brand-type strong{font-size:18px}.official-brand-footer .official-logo{width:150px;height:150px}}
+</style>
