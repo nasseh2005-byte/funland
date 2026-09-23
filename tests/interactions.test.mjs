@@ -62,6 +62,23 @@ for(const lang of ['ar','en'])test(lang+': the adventure picker changes the visi
   tabs[2].dispatchEvent(arrow);
   assert.equal(tabs[0].getAttribute('aria-selected'),'true');
 });
+for(const lang of ['ar','en'])test(lang+': visit routes switch and link to their games on the island',()=>{
+  const {window,document}=parseHTML(fs.readFileSync('dist/'+lang+'/visit/index.html','utf8'));
+  const code=ts.transpile(fs.readFileSync('src/scripts/day-planner.ts','utf8'),{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS});
+  vm.runInNewContext(code,{window,document});
+  const tabs=[...document.querySelectorAll('[data-route-tab]')];
+  const panels=[...document.querySelectorAll('[data-route-panel]')];
+  assert.equal(tabs.length,3);
+  assert.equal(panels[0].querySelectorAll('.planner-steps a').length,3);
+  tabs[1].click();
+  assert.equal(tabs[1].getAttribute('aria-selected'),'true');
+  assert.equal(panels[1].hidden,false);
+  assert.ok(panels[0].hidden&&panels[2].hidden);
+  assert.ok(panels[1].querySelector('.planner-steps a').getAttribute('href').endsWith('/experiences/#cars'));
+  const arrow=new window.Event('keydown',{bubbles:true});arrow.key=lang==='ar'?'ArrowLeft':'ArrowRight';
+  tabs[1].dispatchEvent(arrow);
+  assert.equal(tabs[2].getAttribute('aria-selected'),'true');
+});
 for(const lang of ['ar','en'])test(lang+': enter, switch games/areas, change lighting and exit without a modal',()=>{
   const {document,window,getFocused}=setup(false,lang);
   const root=document.querySelector('[data-explorer]');

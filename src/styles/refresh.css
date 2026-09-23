@@ -13,6 +13,9 @@ html,body{overflow-x:clip}
 .page-intro{background-image:radial-gradient(circle at 80% 16%,#ffebad 0,transparent 35%),linear-gradient(120deg,#f6db85,#f1dd9d)}
 .section-note,.map-disclaimer{font-size:13px;line-height:1.85}
 .footer a:hover{color:var(--green)}
+.filter{font-weight:650;transition:background .2s,transform .2s}.filter:hover{transform:translateY(-2px)}.filter[aria-pressed=true]{background:#ffcc32;border-color:#bc9c33;color:#253d30;box-shadow:0 3px 0 #bc9c33}
+.game-grid{gap:18px}.game-card{background:var(--surface);border-radius:18px;overflow:hidden;box-shadow:0 8px 25px #203d2a0d;transition:transform .25s,box-shadow .25s}.game-card:hover{transform:translateY(-5px);box-shadow:0 17px 35px #203d2a1c}.game-art{height:210px}.game-art img{transition:transform .45s}.game-card:hover .game-art img{transform:scale(1.055)}.game-body{padding:21px 24px 25px}.game-body h3{font-size:24px}.game-body button{color:#263d30;font-weight:700}.game-body button:hover{color:#883818}
+.visit-checklist{gap:14px}.checklist-item{border-radius:15px;background:var(--surface);border-color:var(--line);padding:20px}.checklist-item svg{color:var(--orange)}.faq details{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:17px 21px;margin-bottom:10px}.faq details[open]{border-color:var(--green)}
 [data-theme=dark] .play-hero{background:radial-gradient(circle at 84% 26%,#725b322e 0,transparent 34%),radial-gradient(circle at 6% 83%,#37685737 0,transparent 34%),var(--bg)}
 [data-theme=dark] .island-discovery{background:linear-gradient(180deg,#203b30,#253d2f)}
 [data-theme=dark] .outing-section{background:radial-gradient(circle at 85% 9%,#33654c,transparent 43%),#16392d}
@@ -30,6 +33,7 @@ html,body{overflow-x:clip}
   .fun-ribbon span{font-size:25px}.fun-ribbon{padding-block:14px 20px}
   .page-intro h1{font-size:clamp(34px,9vw,44px);line-height:1.25}
   .section-note,.map-disclaimer{font-size:12px}
+  .game-art{height:190px}.game-body{padding:20px}.game-body h3{font-size:21px}.game-card:hover{transform:none}
 }
 @media(max-width:380px){.play-copy h1{font-size:40px}.play-copy .button-row{gap:9px}.play-copy .text-link{font-size:11px}.carousel-frame{height:285px}}
 @media(prefers-reduced-motion:reduce){.play-collage,.carousel-frame{filter:none}}
